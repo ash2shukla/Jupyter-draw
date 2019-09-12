@@ -33,18 +33,25 @@ define([
 
     events.on('execute.CodeCell',
         function(event, data) {
-            initialize();
-            let cell_text = data.cell.get_text().split('\n')[0];
-            if (cell_text.startsWith('#jupyter_draw')) {
-                var config;
-                if (cell_text.search('=') != -1) {
-                    config = JSON.parse(cell_text.split('=')[1]);
-                } else {
-                    config = {};
+            var createDrawPanel = false;
+            var config;
+            let cell_texts = data.cell.get_text().split('\n');
+            cell_texts.forEach(element => {
+                if(element.startsWith('#jupyter_draw')) {
+                    createDrawPanel = true;
+                    if (element.search('=') != -1) {
+                        config = JSON.parse(element.split('=')[1]);
+                    } else {
+                        config = {};
+                    }
                 }
-                var canvasWidth = data.cell.output_area.element[0].clientWidth;
+            });
+
+            if (createDrawPanel) {
+                var canvasWidth = data.cell.output_area.element[0].offsetWidth;
                 var canvasHeight = config.height;
                 var canvas = document.createElement('canvas');
+                canvas.setAttribute('style', "border:1px solid #42a5f5;");
                 canvas.setAttribute('width', canvasWidth);
                 canvas.setAttribute('height', canvasHeight);
                 if(typeof G_vmlCanvasManager != 'undefined') {
@@ -150,11 +157,11 @@ define([
                 var toggleButton = document.createElement('input');
                 toggleButton.setAttribute('type', 'checkbox');
                 toggleButton.checked = true;
-                toggleButton.setAttribute('class', 'up');
+                toggleButton.setAttribute('style', 'z-index:100;');
                 
                 toggleButton.onchange = function() {
                     if (toggleButton.checked) {
-                        controlDiv.setAttribute('style', 'display:block');
+                        controlDiv.setAttribute('style', 'display:flex');
                     } else {
                         controlDiv.setAttribute('style', 'display:none');
                     }
