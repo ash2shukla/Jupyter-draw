@@ -1,0 +1,7 @@
+Type: Jupyter Notebook Extension
+Compatibility: 6.x
+Name: Jupyter Draw
+Main: main.js
+Link: README.md
+Description: |
+  Lets u draw a diagram using cursor in a output cell

@@ -1,0 +1,12 @@
+MANIFEST.in
+README.md
+setup.py
+jupyter_draw/__init__.py
+jupyter_draw.egg-info/PKG-INFO
+jupyter_draw.egg-info/SOURCES.txt
+jupyter_draw.egg-info/dependency_links.txt
+jupyter_draw.egg-info/requires.txt
+jupyter_draw.egg-info/top_level.txt
+jupyter_draw/static/description.yml
+jupyter_draw/static/draw.css
+jupyter_draw/static/main.js
